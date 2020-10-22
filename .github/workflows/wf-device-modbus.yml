@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sync and version repo
-        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.3.9
+        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.4.0
         with:
           edgex-repo: "device-modbus-go"
           canonical-repo: "edgex-device-modbus-go"
