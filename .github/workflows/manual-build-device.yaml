@@ -1,5 +1,5 @@
 name: EdgeX-Device-Camera
-on: push
+on: milestone
 jobs:
   sync-repo:
     runs-on: ubuntu-latest
