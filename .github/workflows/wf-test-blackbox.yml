@@ -1,7 +1,7 @@
 name: Blackbox tests
-on:
-  schedule:
-  - cron:  "0 9 * * *"
+on: push
+#  schedule:
+#  - cron:  "0 9 * * *"
 jobs:
   run-checkbox-tests:
     runs-on: ubuntu-latest
@@ -33,8 +33,8 @@ jobs:
     - name: Check out blackbox test repo
       uses: actions/checkout@v2
       with:
-        repository: siggiskulason/blackbox-testing
-        ref: siggiskulason-patch-1  
+        repository: edgexfoundry/blackbox-testing
+        ref: master
 
     - name: Environment setup part 2
       shell: bash 
