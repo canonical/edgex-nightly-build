@@ -1,16 +1,17 @@
 name: EdgeX-device-grove
-on:
-  schedule:
-  - cron:  "0 6 * * *"
+on: push
+#  schedule:
+#  - cron:  "0 6 * * *"
 jobs:
   sync-repo:
     runs-on: ubuntu-latest
     steps:
       - name: Sync and version repo
-        uses: siggiskulason/edgex-sync-and-create-launchpad-branch-action@v1.2.1
+        uses: siggiskulason/edgex-sync-and-create-launchpad-branch-action@v1.4.0
         with:
           edgex-repo: "device-grove-c"
-          ssh-private-key: ${{ secrets.SSH_DEVICE_GROVE }}    
+          canonical-repo: "edgex-device-grove-c"
+          ssh-private-key: ${{ secrets.SSH_CANONICAL_EDGEX_DEVICE_GROVE }}    
   build-snap:
     runs-on: ubuntu-latest
     steps:
