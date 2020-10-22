@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sync and version repo
-        uses: siggiskulason/edgex-sync-and-create-launchpad-branch-action@v1.4.0
+        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.4.0
         with:
           edgex-repo: "device-grove-c"
           canonical-repo: "edgex-device-grove-c"
@@ -18,7 +18,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: siggiskulason/device-grove-c
+        repository: canonical/device-grove-c
         ref: launchpad
     - name: Build the snap
       uses: snapcore/action-build@v1
