@@ -1,16 +1,17 @@
 name: EdgeX-Device-MQTT
-on:
-  schedule:
-  - cron:  "0 6 * * *"
+on: push
+#  schedule:
+#  - cron:  "0 6 * * *"
 jobs:
   sync-repo:
     runs-on: ubuntu-latest
     steps:
       - name: Sync and version repo
-        uses: siggiskulason/edgex-sync-and-create-launchpad-branch-action@v1.2.1
+        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.4.0
         with:
           edgex-repo: "device-mqtt-go"
-          ssh-private-key: ${{ secrets.SSH_DEVICE_MQTT }}   
+          canonical-repo: "edgex-device-mqtt-go"
+          ssh-private-key: ${{ secrets.SSH_CANONICAL_EDGEX_DEVICE_MQTT }}   
   build-snap:
     runs-on: ubuntu-latest
     needs: sync-repo
@@ -18,7 +19,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: siggiskulason/device-mqtt-go
+        repository: canonical/edgex-device-mqtt-go
         ref: launchpad
     - name: Build the snap
       uses: snapcore/action-build@v1
@@ -27,15 +28,15 @@ jobs:
       with:
         name: snap-files
         path: "*.snap"   
-  build-launchpad:
-    runs-on: ubuntu-latest
-    needs:  build-snap
-    steps:
-      - name: Kick off Launchpad build
-        uses: siggiskulason/edgex-launchpad-build-action@v1.4
-        with:
-          edgex_snap: "edgex-device-mqtt"
-          consumer_name: ${{ secrets.LP_CONSUMER_NAME }}
-          access_token: ${{ secrets.LP_ACCESS_TOKEN }}
-          access_secret: ${{ secrets.LP_ACCESS_SECRET }}
+#  build-launchpad:
+#    runs-on: ubuntu-latest
+#    needs:  build-snap
+#    steps:
+#      - name: Kick off Launchpad build
+#        uses: canonical/edgex-launchpad-build-action@v1.4
+#        with:
+#          edgex_snap: "edgex-device-mqtt"
+#          consumer_name: ${{ secrets.LP_CONSUMER_NAME }}
+#          access_token: ${{ secrets.LP_ACCESS_TOKEN }}
+#          access_secret: ${{ secrets.LP_ACCESS_SECRET }}
  
