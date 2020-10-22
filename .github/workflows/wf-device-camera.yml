@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:      
       - name: Build and version device-camera
-        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.3.9
+        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.4.0
         with:
           edgex-repo: "device-camera-go"
           canonical-repo: "edgex-device-camera-go"
