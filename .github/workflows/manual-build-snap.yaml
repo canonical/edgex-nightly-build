@@ -1,5 +1,5 @@
 name: manual-build-snap
-on: push
+on: milestone
 jobs:
   build-snap:
     runs-on: ubuntu-latest
