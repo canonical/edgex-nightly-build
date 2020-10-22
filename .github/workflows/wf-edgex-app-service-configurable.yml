@@ -11,7 +11,7 @@ jobs:
         with:
           edgex-repo: "app-service-configurable"
           canonical-repo: "edgex-app-service-configurable"
-          ssh-private-key: ${{ secrets.SSH_CANONICAL_EDGEX_APP_SERVICE_CONFIGURABLE }}    
+          ssh-private-key: ${{ secrets.SSH_CANONICAL_APP_SERVICE_CONFIGURABLE }}    
           patch-file: "0001-snapcraft-version-patch.diff" 
   build-snap:
     runs-on: ubuntu-latest
