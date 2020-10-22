@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build and version device-camera
-        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.3.7
+        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.3.8
         with:
           edgex-repo: "device-camera-go"
           canonical-repo: "edgex-device-camera-go"
@@ -26,9 +26,9 @@ jobs:
       with:
         name: snap-files
         path: "*.snap"   
-   # - name: Test the snap
-   #   uses: siggiskulason/edgex-test-device-snap-action@v1.4
-   #   with:
-   #     edgex_device_snap: "edgex-device-camera"
-   #     edgex_service_name: "device-camera-go"
-   #     edgex_device_name: "Camera001"  
+    - name: Test the snap
+      uses: canonical/edgex-test-device-snap-action@v1.4
+      with:
+        edgex_device_snap: "edgex-device-camera"
+        edgex_service_name: "device-camera-go"
+        edgex_device_name: "Camera001"  
