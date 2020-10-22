@@ -20,7 +20,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: siggiskulason/device-camera-go
+        repository: canonical/edgex-device-camera-go
         ref: launchpad
     - name: Build the snap
       uses: snapcore/action-build@v1
