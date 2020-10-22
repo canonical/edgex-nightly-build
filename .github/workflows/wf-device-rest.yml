@@ -1,7 +1,7 @@
 name: EdgeX-Device-Rest
-on: push
-#  schedule:
-#  - cron:  "0 6 * * *"
+on:
+  schedule:
+  - cron:  "0 6 * * *"
 jobs:
   sync-repo:
     runs-on: ubuntu-latest
