@@ -1,0 +1,49 @@
+name: manual-build-snap
+on: milestone
+jobs:
+  build-snap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up
+        shell: bash 
+        run: |
+          mkdir -p ~/.ssh/
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          
+          # git clone "https://github.com/tonyespy/edgex-go.git" dest-dir
+          git clone "https://github.com/siggiskulason/app-service-configurable.git" dest-dir
+          cd dest-dir
+          # git checkout snap-optimize-pipeline-build 
+ 
+          # cleanup
+ 
+          # remove lxd 
+          sudo apt-get remove -qy --purge lxd lxd-client
+          sudo snap remove --purge lxd
+          
+          # set up lxd group
+          sudo groupadd --force --system lxd
+          sudo /usr/sbin/usermod -G lxd -a `whoami`
+          newgrp - lxd
+          
+          #install xd
+          sudo snap install lxd
+          sudo lxd init --auto
+          
+          # install snapcraft
+          
+          sudo snap install --classic snapcraft
+          # ls -l snap/
+          # patch --verbose -p1 < snap/local/patches/0001-optimize-build-for-pipeline-CI-check.patch
+          # ls -l snap/
+   
+      - name: Build snap
+        shell: bash 
+        run: |
+          # run snapcraft
+          
+          cd dest-dir
+          
+          sg lxd "snapcraft prime --use-lxd"
+          # snapcraft clean --destructive-mode
+          # snapcraft --destructive-mode

@@ -1,0 +1,41 @@
+name: EdgeX-App-service-configurable
+on:
+  schedule:
+  - cron:  "0 6 * * *"
+jobs:
+  sync-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync and version repo
+        uses: siggiskulason/edgex-sync-and-create-launchpad-branch-action@v1.3.6
+        with:
+          edgex-repo: "app-service-configurable"
+          ssh-private-key: ${{ secrets.SSH_APP_SERVICE_CONFIGURABLE }}    
+          patch-file: "0001-snapcraft-version-patch.diff" 
+  build-snap:
+    runs-on: ubuntu-latest
+    needs: sync-repo
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: siggiskulason/app-service-configurable
+        ref: launchpad
+    - name: Build the snap
+      uses: snapcore/action-build@v1
+    - name: Uploading snap artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: snap-files
+        path: "*.snap"   
+  build-launchpad:
+    runs-on: ubuntu-latest
+    needs:  build-snap
+    steps:
+      - name: Kick off Launchpad build
+        uses: siggiskulason/edgex-launchpad-build-action@v1.4
+        with:
+          edgex_snap: "edgex-app-service-configurable"
+          consumer_name: ${{ secrets.LP_CONSUMER_NAME }}
+          access_token: ${{ secrets.LP_ACCESS_TOKEN }}
+          access_secret: ${{ secrets.LP_ACCESS_SECRET }}

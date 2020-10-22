@@ -1,0 +1,28 @@
+name: EdgeX-device-grove
+on:
+  schedule:
+  - cron:  "0 6 * * *"
+jobs:
+  sync-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync and version repo
+        uses: siggiskulason/edgex-sync-and-create-launchpad-branch-action@v1.2.1
+        with:
+          edgex-repo: "device-grove-c"
+          ssh-private-key: ${{ secrets.SSH_DEVICE_GROVE }}    
+  build-snap:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: siggiskulason/device-grove-c
+        ref: launchpad
+    - name: Build the snap
+      uses: snapcore/action-build@v1
+    - name: Uploading snap artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: snap-files
+        path: "*.snap"   

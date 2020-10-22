@@ -1,0 +1,19 @@
+diff --git a/snap/snapcraft.yaml b/snap/snapcraft.yaml
+index 34feeb3..85a3532 100644
+--- a/snap/snapcraft.yaml
++++ b/snap/snapcraft.yaml
+@@ -73,7 +73,13 @@ parts:
+     after: [go]
+     override-pull: |
+       snapcraftctl pull
+-      snapcraftctl set-version "1.2.0-$(date +%Y%m%d)+$(git rev-parse --short HEAD)"
++      cd $SNAPCRAFT_PROJECT_DIR
++      if [ -f VERSION ]; then
++        PROJECT_VERSION=$(cat VERSION)
++      else
++        PROJECT_VERSION=local-dev
++      fi
++      snapcraftctl set-version ${PROJECT_VERSION}
+     override-build: |
+       cd $SNAPCRAFT_PART_SRC
+       make build

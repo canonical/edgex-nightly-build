@@ -1,0 +1,56 @@
+name: EdgeXFoundry-Snap
+on:
+  schedule:
+  - cron:  "0 6 * * *"
+jobs:
+  sync-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync and version repo
+        uses: siggiskulason/edgex-sync-and-create-launchpad-branch-action@v1.2.1
+        with:
+          edgex-repo: "edgex-go"
+          ssh-private-key: ${{ secrets.SSH_EDGEXFOUNDRY }}    
+  build-snap:
+    runs-on: ubuntu-latest
+    needs: sync-repo
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: siggiskulason/edgex-go
+        ref: launchpad
+    - name: Build the snap
+      uses: snapcore/action-build@v1
+    - name: Uploading snap artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: snap-files
+        path: "*.snap"   
+  test-snap:
+    runs-on: ubuntu-latest
+    needs: build-snap
+    steps:
+      - name: testing snap install
+        uses: actions/download-artifact@v2
+        with:
+          name:  snap-files
+      - shell: bash 
+        run: |
+          sudo snap install --dangerous *.snap
+  run-checkbox-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "omitted from here for brevity"
+  build-launchpad:
+    runs-on: ubuntu-latest
+    needs: test-snap
+    steps:
+      - name: Kick off Launchpad build
+        uses: siggiskulason/edgex-launchpad-build-action@v1.4
+        with:
+          edgex_snap: "edgexfoundry"
+          consumer_name: ${{ secrets.LP_CONSUMER_NAME }}
+          access_token: ${{ secrets.LP_ACCESS_TOKEN }}
+          access_secret: ${{ secrets.LP_ACCESS_SECRET }}
+ 

@@ -1,0 +1,45 @@
+name: Run checkbox tests
+on: milestone # push
+jobs:
+  build-snap: # Then build the snap
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: siggiskulason/edgex-go
+        ref: master
+    - name: Build the snap
+      uses: snapcore/action-build@v1
+    - name: Uploading snap artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: snap-files
+        path: "*.snap"   
+  test-snap: # Try running checkbox tests
+    runs-on: ubuntu-latest
+    needs: build-snap
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: siggiskulason/edgex-sync
+        ref: master
+    - name: getting snap artifact
+      uses: actions/download-artifact@v2
+      with:
+        name:  snap-files
+    - name: testing snap install
+      shell: bash 
+      run: |
+        cd tests
+        pwd
+        ls -alR
+        echo "Running checkbox test script"
+        mkdir checkbox
+        cd checkbox
+        git clone https://git.launchpad.net/~checkbox-dev/checkbox-provider-edgex/+git/checkbox-provider-edgex
+        # override the utils.sh file so that we install a local snap
+        cp ../utils.sh checkbox-provider-edgex/data/geneva
+        cd checkbox-provider-edgex/data/geneva
+        sudo ./test-install.sh
