@@ -18,8 +18,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: canonical/device-modbus-go
-        ref: master
+        repository: canonical/edgex-device-modbus-go
+        ref: launchpad
     - name: Build the snap
       uses: snapcore/action-build@v1
     - name: Uploading snap artifact
