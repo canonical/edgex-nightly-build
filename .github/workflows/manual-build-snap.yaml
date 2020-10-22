@@ -1,5 +1,5 @@
 name: manual-build-snap
-on: milestone
+on: push
 jobs:
   build-snap:
     runs-on: ubuntu-latest
@@ -10,8 +10,8 @@ jobs:
           mkdir -p ~/.ssh/
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           
-          # git clone "https://github.com/tonyespy/edgex-go.git" dest-dir
-          git clone "https://github.com/siggiskulason/app-service-configurable.git" dest-dir
+          git clone "https://github.com/edgexfoundry/edgex-go.git" dest-dir
+          # git clone "https://github.com/siggiskulason/app-service-configurable.git" dest-dir
           cd dest-dir
           # git checkout snap-optimize-pipeline-build 
  
@@ -33,9 +33,9 @@ jobs:
           # install snapcraft
           
           sudo snap install --classic snapcraft
-          # ls -l snap/
-          # patch --verbose -p1 < snap/local/patches/0001-optimize-build-for-pipeline-CI-check.patch
-          # ls -l snap/
+          ls -l snap/
+          patch --verbose -p1 < snap/local/patches/0001-optimize-build-for-pipeline-CI-check.patch
+          ls -l snap/
    
       - name: Build snap
         shell: bash 
