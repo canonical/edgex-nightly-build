@@ -30,5 +30,6 @@ jobs:
     - name: MM Failure
       if: ${{ failure() }}
       run: |
-        echo "{\"text\":\"${{github.workflow}} ${{github.event_name}} failed. See logs at https://github.com/canonical/edgex-sync/actionsruns/${{github.run_id}} \"}"
-        
+        echo "{\"text\":\":stop-sign: [${{github.event_name}}] ${{github.workflow}} See logs at https://github.com/canonical/edgex-sync/actionsruns/${{github.run_id}} \"}"
+        curl -i -X POST -H "{\"text\":\":stop-sign: [${{github.event_name}}] ${{github.workflow}} See logs at https://github.com/canonical/edgex-sync/actionsruns/${{github.run_id}} \"}" ${{secrets.MATTERMOST}}
+
