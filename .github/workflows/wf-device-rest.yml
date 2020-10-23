@@ -1,13 +1,13 @@
 name: EdgeX-Device-Rest
-on:
-  schedule:
-  - cron:  "0 6 * * *"
+on: push
+#  schedule:
+#  - cron:  "0 6 * * *"
 jobs:
   sync-repo:
     runs-on: ubuntu-latest
     steps:
       - name: Sync and version repo
-        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.3.9
+        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.4.0
         with:
           edgex-repo: "device-rest-go"
           canonical-repo: "edgex-device-rest-go"
