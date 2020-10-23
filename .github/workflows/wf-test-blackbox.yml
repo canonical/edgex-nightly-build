@@ -497,7 +497,13 @@ jobs:
         folder: system-management 
         reporters: "junit,cli"    
  #       suppressExitCode: true  
-    
+
+    - name: MM Failure
+      if: ${{ failure() }}
+      run: |
+        curl -i -X POST -H 'Content-Type: application/json' -d '{"username" : "github-builds", "text" : "<!channel> :warning: Tests failed [${{github.event_name}}] ${{github.workflow}} [See logs](https://github.com/canonical/edgex-sync/actions/runs/${{github.run_id}}) "}' ${{secrets.MATTERMOST}}
+
+
 #    - name: Output summary to console
 #      run: |
 #        echo ${{ steps.test-device-virtual.outputs.summary }}
