@@ -1,7 +1,7 @@
 name: EdgeX-Device-MQTT
-on:
-  schedule:
-  - cron:  "0 6 * * *"
+on: push
+#  schedule:
+#  - cron:  "0 6 * * *"
 jobs:
   sync-repo:
     runs-on: ubuntu-latest
@@ -11,6 +11,7 @@ jobs:
         with:
           edgex-repo: "device-mqtt-go"
           canonical-repo: "edgex-device-mqtt-go"
+          patch-file: "0001-snapcraft-version-patch.diff"
           ssh-private-key: ${{ secrets.SSH_CANONICAL_EDGEX_DEVICE_MQTT }}   
   build-snap:
     runs-on: ubuntu-latest
