@@ -1,5 +1,5 @@
 name: EdgeXFoundry-Snap
-on: push
+on: milestone
 jobs:
   sync-repo:
     runs-on: ubuntu-latest
