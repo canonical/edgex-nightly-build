@@ -1,7 +1,7 @@
 name: EdgeXFoundry-Snap
-on:
-  schedule:
-  - cron:  "0 6 * * *"
+on: push
+#  schedule:
+#  - cron:  "0 6 * * *"
 jobs:
   sync-repo:
     runs-on: ubuntu-latest
@@ -12,7 +12,11 @@ jobs:
           edgex-repo: "edgex-go"
           canonical-repo: "edgex-go"
           ssh-private-key: ${{ secrets.SSH_CANONICAL_EDGEXFOUNDRY }}    
-          patch-file: "0001-snapcraft-version-patch.diff" 
+          # patch-file: "0001-snapcraft-version-patch.diff" 
+      - name: MM Failure
+        if: ${{ failure() }}
+        run: |
+          curl -i -X POST -H 'Content-Type: application/json' -d '{"username" : "github-builds", "text" : "<!channel> :warning: Syncing repo failed [${{github.event_name}}] ${{github.workflow}} [See logs](https://github.com/canonical/edgex-sync/actions/runs/${{github.run_id}}) "}' ${{secrets.MATTERMOST}}
   build-snap:
     runs-on: ubuntu-latest
     needs: sync-repo
