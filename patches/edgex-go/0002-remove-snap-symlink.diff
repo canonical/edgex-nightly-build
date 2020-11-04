@@ -1,0 +1,17 @@
+diff --git a/snap/snapcraft.yaml b/snap/snapcraft.yaml
+index 64187a41..db621af7 100644
+--- a/snap/snapcraft.yaml
++++ b/snap/snapcraft.yaml
+@@ -675,6 +675,12 @@ parts:
+ 
+       mkdir -p $SNAPCRAFT_PART_INSTALL/config/security-proxy-setup
+       cp $SNAPCRAFT_PART_INSTALL/etc/kong/kong.conf.default $SNAPCRAFT_PART_INSTALL/config/security-proxy-setup/kong.conf
++
++      # this step resolves "package contains external symlinks: usr/local/openresty/bin/openresty lint-snap-v2_external_symlinks"
++      cd $SNAPCRAFT_PART_INSTALL/usr/local/openresty/bin
++      rm openresty
++      ln -s ../nginx/sbin/nginx openresty
++
+     prime:
+        - -lib/systemd/*
+        - -usr/share/man/*
