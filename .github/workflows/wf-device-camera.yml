@@ -11,7 +11,6 @@ jobs:
         with:
           edgex-repo: "device-camera-go"
           canonical-repo: "edgex-device-camera-go"
-          patch-file: "0001-snapcraft-version-patch.diff"
           ssh-private-key: ${{ secrets.SSH_CANONICAL_EDGEX_DEVICE_CAMERA }}
   build-snap:
     runs-on: ubuntu-latest
