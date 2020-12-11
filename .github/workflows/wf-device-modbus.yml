@@ -11,10 +11,10 @@ jobs:
         with:
           edgex-repo: "device-modbus-go"
           canonical-repo: "edgex-device-modbus-go"
-          patch-file: "0001-snapcraft-version-patch.diff"
           ssh-private-key: ${{ secrets.SSH_CANONICAL_EDGEX_DEVICE_MODBUS }}    
   build-snap:
     runs-on: ubuntu-latest
+    needs: sync-repo
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
