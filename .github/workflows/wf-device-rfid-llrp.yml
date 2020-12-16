@@ -1,0 +1,61 @@
+name: EdgeX-Device-RFID-LLRP
+on: push
+  schedule:
+  - cron:  "0 6 * * *"
+jobs:
+#  sync-repo:
+#    runs-on: ubuntu-latest
+#    steps:      
+# TODO: commented out as this is still in a holding repository
+#      - name: Build and version device-rfid-llrp
+#        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.4.0
+#        with:
+#          edgex-repo: "device-rfid-llrp-go"
+#          canonical-repo: "edgex-device-rfid-llrp-go"
+#          ssh-private-key: ${{ secrets.SSH_CANONICAL_EDGEX_DEVICE_RFID_LLRP }}
+#      - name: MM Failure
+#        if: ${{ failure() }}
+#        run: |
+#          curl -i -X POST -H 'Content-Type: application/json' -d '{"username" : "github-builds", "text" : "<!channel> :warning: Syncing repo failed [${{github.event_name}}] ${{github.workflow}} [See logs](https://github.com/canonical/edgex-sync/actions/runs/${{github.run_id}}) "}' ${{secrets.MATTERMOST}}
+  build-snap:
+    runs-on: ubuntu-latest
+ #   needs: sync-repo
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        repository: canonical/edgex-device-rfid-llrp-go
+        ref: master
+    - name: Build the snap
+      uses: snapcore/action-build@v1
+    - name: Uploading snap artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: snap-files
+        path: "*.snap"   
+# TODO: Add testing using the LLRP simulator
+#    - name: Test the snap
+#      uses: canonical/edgex-test-device-snap-action@v1.4
+#      with:
+#        edgex_device_snap: "edgex-device-rfid-llrp"
+#        edgex_service_name: "device-rfid-llrp-go"
+#        edgex_device_name: "Camera001"
+    - name: MM Failure
+      if: ${{ failure() }}
+      run: |
+        curl -i -X POST -H 'Content-Type: application/json' -d '{"username" : "github-builds", "text" : "<!channel> :warning: Build failed [${{github.event_name}}] ${{github.workflow}} [See logs](https://github.com/canonical/edgex-sync/actions/runs/${{github.run_id}}) "}' ${{secrets.MATTERMOST}}
+  build-launchpad:
+    runs-on: ubuntu-latest
+    needs:  build-snap
+    steps:
+      - name: Kick off Launchpad build
+        uses: canonical/edgex-launchpad-build-action@v1.4
+        with:
+          edgex_snap: "edgex-device-rfid-llrp"
+          consumer_name: ${{ secrets.LP_CONSUMER_NAME }}
+          access_token: ${{ secrets.LP_ACCESS_TOKEN }}
+          access_secret: ${{ secrets.LP_ACCESS_SECRET }}
+      - name: MM Failure
+        if: ${{ failure() }}
+        run: |
+          curl -i -X POST -H 'Content-Type: application/json' -d '{"username" : "github-builds", "text" : "<!channel> :warning: Launchpad build failed [${{github.event_name}}] ${{github.workflow}} [See logs](https://github.com/canonical/edgex-sync/actions/runs/${{github.run_id}}) "}' ${{secrets.MATTERMOST}}
