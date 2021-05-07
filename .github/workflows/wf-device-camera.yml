@@ -33,7 +33,7 @@ jobs:
         name: snap-files
         path: "*.snap"   
     - name: Test the snap
-      uses: canonical/edgex-test-device-snap-action@v1.4
+      uses: canonical/edgex-test-device-snap-action@v1.5
       with:
         edgex_device_snap: "edgex-device-camera"
         edgex_service_name: "device-camera-go"
