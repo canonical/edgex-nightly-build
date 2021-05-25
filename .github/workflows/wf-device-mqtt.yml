@@ -1,7 +1,5 @@
 name: EdgeX-Device-MQTT
-on:
-  schedule:
-  - cron:  "0 6 * * *"
+on: push
 jobs:
   sync-repo:
     runs-on: ubuntu-latest
