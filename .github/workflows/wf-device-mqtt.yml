@@ -21,6 +21,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: canonical/edgex-device-mqtt-go
+        fetch-depth: 0
         ref: launchpad
     - name: Build the snap
       uses: snapcore/action-build@v1
