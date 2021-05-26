@@ -1,5 +1,7 @@
 name: EdgeX-Device-Camera
-on: push
+on:
+  schedule:
+  - cron:  "0 6 * * *"
 jobs:
   sync-repo:
     runs-on: ubuntu-latest
