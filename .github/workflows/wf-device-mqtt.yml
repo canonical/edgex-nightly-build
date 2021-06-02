@@ -3,26 +3,15 @@ on:
   schedule:
   - cron:  "0 6 * * *"
 jobs:
-  sync-repo:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Sync and version repo
-        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.4.0
-        with:
-          edgex-repo: "device-mqtt-go"
-          canonical-repo: "edgex-device-mqtt-go"
-          patch-file: "0001-snapcraft-version-patch.diff"
-          ssh-private-key: ${{ secrets.SSH_CANONICAL_EDGEX_DEVICE_MQTT }}   
   build-snap:
     runs-on: ubuntu-latest
-    needs: sync-repo
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: canonical/edgex-device-mqtt-go
+        repository: edgexfoundry/device-mqtt-go
         fetch-depth: 0
-        ref: launchpad
+        ref: master
     - name: Build the snap
       uses: snapcore/action-build@v1
     - name: Uploading snap artifact
