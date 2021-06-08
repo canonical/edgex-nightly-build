@@ -3,28 +3,14 @@ on:
   schedule:
   - cron:  "0 6 * * *"
 jobs:
-  sync-repo:
-    runs-on: ubuntu-latest
-    steps:      
-      - name: Build and version device-camera
-        uses: canonical/edgex-sync-and-create-launchpad-branch-action@v1.4.0
-        with:
-          edgex-repo: "device-camera-go"
-          canonical-repo: "edgex-device-camera-go"
-          ssh-private-key: ${{ secrets.SSH_CANONICAL_EDGEX_DEVICE_CAMERA }}
-      - name: MM Failure
-        if: ${{ failure() }}
-        run: |
-          curl -i -X POST -H 'Content-Type: application/json' -d '{"username" : "github-builds", "text" : "<!channel> :warning: Syncing repo failed [${{github.event_name}}] ${{github.workflow}} [See logs](https://github.com/canonical/edgex-sync/actions/runs/${{github.run_id}}) "}' ${{secrets.MATTERMOST}}
   build-snap:
     runs-on: ubuntu-latest
-    needs: sync-repo
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: canonical/edgex-device-camera-go
-        ref: launchpad
+        repository: edgexfoundry/device-camera-go
+        ref: master
     - name: Build the snap
       uses: snapcore/action-build@v1
     - name: Uploading snap artifact
