@@ -9,7 +9,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: edgexfoundry/device-mqtt-go
+        repository: edgexfoundry/device-camera-go
         fetch-depth: 0
         ref: master
     - name: Build the snap
