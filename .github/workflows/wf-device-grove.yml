@@ -1,7 +1,7 @@
 name: EdgeX-Device-Grove
-on: push
-#  schedule:
-#  - cron:  "0 6 * * *"
+on:
+  schedule:
+  - cron:  "0 6 * * *"
 jobs:
   build-snap:
     runs-on: ubuntu-latest
