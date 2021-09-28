@@ -9,9 +9,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        repository: siggiskulason/edgex-cli
+        repository: canonical/edgex-cli
         fetch-depth: 0
-        ref: main
+        ref: ireland-lp
     - name: Build the snap
       uses: snapcore/action-build@v1
     - name: Uploading snap artifact
