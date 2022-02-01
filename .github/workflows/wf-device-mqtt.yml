@@ -28,8 +28,10 @@ jobs:
     needs:  build-snap
     steps:
       - name: Kick off Launchpad build
-        uses: canonical/edgex-launchpad-build-action@v1.4
+        uses: canonical/edgex-launchpad-build-action@v1.7
         with:
+          build1: "amd64"
+          build2: "arm64"
           edgex_snap: "edgex-device-mqtt"
           consumer_name: ${{ secrets.LP_CONSUMER_NAME }}
           access_token: ${{ secrets.LP_ACCESS_TOKEN }}
