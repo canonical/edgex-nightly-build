@@ -1,4 +1,4 @@
-name: EdgeX-APP-RFID-LLRP-Inventory
+name: EdgeX-App-RFID-LLRP-Inventory
 on:
   schedule:
   - cron:  "0 6 * * *"
