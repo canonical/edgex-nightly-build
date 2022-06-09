@@ -1,0 +1,47 @@
+# action.yml
+name: 'Start a launchpad build'
+description: 'Start a launchpad build'
+inputs:
+  edgex_snap:
+    description: "edgex_snap"
+    required: true  
+  consumer_name:
+    description: "consumer_name"
+    required: true
+  access_token:
+    description: "access_token"
+    required: true
+  access_secret:
+    description: "access_secret"
+    required: true
+  architecture:
+    description: "architecture"
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install launchpadlib
+      shell: bash
+    - name: Runch Launchpad commands
+      run: |
+        import os
+        import sys
+        import argparse
+        from launchpadlib.launchpad import Launchpad
+        from launchpadlib.launchpad import Credentials
+        service_root= 'production'
+        launchpad = Launchpad.login("${{inputs.consumer_name}}", "${{inputs.access_token}}", "${{inputs.access_secret}}",service_root, version='devel')
+        ubuntu = launchpad.distributions["ubuntu"]
+        release = ubuntu.getSeries(name_or_version="focal")
+        edgex_team = launchpad.people["canonical-edgex"]
+        snap = launchpad.snaps.getByName(name="${{inputs.edgex_snap}}", owner=edgex_team)
+
+        # it's not obvious from the documentation - but we need to specify the channel used for snapcraft, otherwise we get an old version
+        if bool ("${{inputs.architecture}}"):
+          arch = release.getDistroArchSeries(archtag="${{inputs.architecture}}")
+          request = snap.requestBuild(archive=ubuntu.main_archive, distro_arch_series=arch, pocket='Updates', channels={"snapcraft":"edge"})
+          print(request)
+      shell: python
