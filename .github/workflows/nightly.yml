@@ -1,4 +1,4 @@
-name: Nightly Build
+name: Nightly
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
   - cron:  "0 6 * * *"
 
 jobs:
-  build-launchpad:
+  request-build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -26,17 +26,11 @@ jobs:
           - edgex-device-rfid-llrp
           - edgex-device-snmp
           - edgex-device-virtual
-          - 
         include:
+          # Additional armhf build for device-gpio
           - snap: edgex-device-gpio
             architecture: armhf
-    steps:
-      - name: Checkout the local actions
-        uses: actions/checkout@v2
-
-      - name: Checkout the local actions again
-        uses: actions/checkout@v2
-        
+    steps:        
       - name: Kick off Launchpad build
         uses: canonical/edgex-launchpad-build-action@v1.8
         with:
