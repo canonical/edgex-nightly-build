@@ -12,8 +12,20 @@ jobs:
       matrix:
         architecture: [amd64, arm64]
         snap:
-          - edgex-device-virtual
+          - edgexfoundry
+          - edgex-cli
+          - edgex-ui
+          - edgex-app-service-configurable
+          - edgex-app-rfid-llrp-inventory
+          - edgex-device-camera
           - edgex-device-gpio
+          - edgex-device-modbus
+          - edgex-device-mqtt
+          - edgex-device-rest
+          - edgex-device-rfid-llrp
+          - edgex-device-snmp
+          - edgex-device-virtual
+          - 
         include:
           - snap: edgex-device-gpio
             architecture: armhf
