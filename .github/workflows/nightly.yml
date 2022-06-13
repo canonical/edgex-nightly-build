@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        architecture: [amd64, arm64]
+        arch: [amd64, arm64]
         snap:
           - edgexfoundry
           - edgex-cli
@@ -29,13 +29,13 @@ jobs:
         include:
           # Additional armhf build for device-gpio
           - snap: edgex-device-gpio
-            architecture: armhf
+            arch: armhf
     steps:        
       - name: Kick off Launchpad build
-        uses: canonical/edgex-launchpad-build-action@v1.8
+        uses: canonical/edgex-launchpad-build-action@v2.0
         with:
-          edgex_snap: ${{ matrix.snap }}
+          snap_name: ${{ matrix.snap }}
+          architecture: ${{ matrix.arch }}
           consumer_name: ${{ secrets.LP_CONSUMER_NAME }}
           access_token: ${{ secrets.LP_ACCESS_TOKEN }}
           access_secret: ${{ secrets.LP_ACCESS_SECRET }}
-          architecture: ${{ matrix.architecture }}
