@@ -1,0 +1,23 @@
+name: EdgeX-Device-Virtual
+on: [push, workflow_dispatch]
+jobs:
+  build-launchpad:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        architecture: [amd64, arm64]
+    steps:
+      - name: Checkout the local actions
+        uses: actions/checkout@v2
+
+      - name: Checkout the local actions again
+        uses: actions/checkout@v2
+        
+      - name: Kick off Launchpad build
+        uses: canonical/edgex-launchpad-build-action@v1.8
+        with:
+          edgex_snap: "edgex-device-virtual"
+          consumer_name: ${{ secrets.LP_CONSUMER_NAME }}
+          access_token: ${{ secrets.LP_ACCESS_TOKEN }}
+          access_secret: ${{ secrets.LP_ACCESS_SECRET }}
+          architecture: ${{ matrix.architecture }}
