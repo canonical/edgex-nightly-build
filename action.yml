@@ -40,8 +40,7 @@ runs:
         snap = launchpad.snaps.getByName(name="${{inputs.edgex_snap}}", owner=edgex_team)
 
         # it's not obvious from the documentation - but we need to specify the channel used for snapcraft, otherwise we get an old version
-        if bool ("${{inputs.architecture}}"):
-          arch = release.getDistroArchSeries(archtag="${{inputs.architecture}}")
-          request = snap.requestBuild(archive=ubuntu.main_archive, distro_arch_series=arch, pocket='Updates', channels={"snapcraft":"edge"})
-          print(request)
+        arch = release.getDistroArchSeries(archtag="${{inputs.architecture}}")
+        request = snap.requestBuild(archive=ubuntu.main_archive, distro_arch_series=arch, pocket='Updates', channels={"snapcraft":"edge"})
+        print(request)
       shell: python
