@@ -1,7 +1,6 @@
 name: Nightly
 
 on:
-  pull_request:
   schedule:
   - cron:  "0 6 * * *"
 
@@ -11,7 +10,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [amd64, arm64]
         snap:
           - edgexfoundry
           - edgex-cli
@@ -26,6 +24,7 @@ jobs:
           - edgex-device-rfid-llrp
           - edgex-device-snmp
           - edgex-device-virtual
+        arch: [amd64, arm64]
         include:
           # Additional armhf build for device-gpio
           - snap: edgex-device-gpio
