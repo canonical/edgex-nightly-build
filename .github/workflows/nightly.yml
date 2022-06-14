@@ -1,6 +1,7 @@
 name: Nightly
 
 on:
+  workflow_dispatch:
   schedule:
   - cron:  "0 6 * * *"
 
@@ -38,3 +39,15 @@ jobs:
           consumer_name: ${{ secrets.LP_CONSUMER_NAME }}
           access_token: ${{ secrets.LP_ACCESS_TOKEN }}
           access_secret: ${{ secrets.LP_ACCESS_SECRET }}
+          
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run keepalive workflow
+        uses: gautamkrishnar/keepalive-workflow@master
+        with:
+          commit_message: keepalive
+          committer_username: github-actions[bot]
+          committer_email: github-actions[bot]@users.noreply.github.com
