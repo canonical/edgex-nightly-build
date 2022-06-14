@@ -38,15 +38,16 @@ jobs:
           consumer_name: ${{ secrets.LP_CONSUMER_NAME }}
           access_token: ${{ secrets.LP_ACCESS_TOKEN }}
           access_secret: ${{ secrets.LP_ACCESS_SECRET }}
-          
+
+  # To keep the workflow active,
+  # add a commit if the project hasn't been active for 59 days.
+  # See https://github.com/canonical/edgex-sync/issues/20
   keepalive:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run keepalive workflow
-        uses: gautamkrishnar/keepalive-workflow@master
+      - uses: actions/checkout@v2
+      - uses: gautamkrishnar/keepalive-workflow@master
         with:
-          commit_message: keepalive
           committer_username: github-actions[bot]
           committer_email: github-actions[bot]@users.noreply.github.com
+          time_elapsed: 59
