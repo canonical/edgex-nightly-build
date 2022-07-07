@@ -23,6 +23,7 @@ jobs:
           - edgex-device-rest
           - edgex-device-rfid-llrp
           - edgex-device-snmp
+          - edgex-device-usb-camera
           - edgex-device-virtual
         arch: [amd64, arm64]
         include:

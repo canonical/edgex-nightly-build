@@ -1,4 +1,4 @@
-# edgex-sync
+# EdgeX Snaps Nightly Build
 
 Canonical publishes the following [EdgeX](https://www.edgexfoundry.org/) Snaps to the Snap Store:
 - [edgexfoundry](https://snapcraft.io/edgexfoundry)
@@ -13,9 +13,10 @@ Canonical publishes the following [EdgeX](https://www.edgexfoundry.org/) Snaps t
 - [edgex-device-rest](https://snapcraft.io/edgex-device-rest)
 - [edgex-device-rfid-llrp](https://snapcraft.io/edgex-device-rfid-llrp)
 - [edgex-device-snmp](https://snapcraft.io/edgex-device-snmp)
+- [edgex-device-usb-camera](https://snapcraft.io/edgex-device-usb-camera)
 - [edgex-device-virtual](https://snapcraft.io/edgex-device-virtual)
 
-The snaps are built nightly from the [upstream](https://www.github.com/) repos and published to the store under `latest/edge` channel. 
+The snaps are built nightly from the [upstream](https://www.github.com/edgexfoundry) repos and published to the store under `latest/edge` channel.
 
 The builds are triggered using the Github Action [nightly-build workflow](https://github.com/canonical/edgex-sync/tree/main/.github/workflows/nightly-build.yml) which uses [edgex-launchpad-build-action](https://github.com/canonical/edgex-launchpad-build-action). The action take various input including three secrets which are stored as [secrets in this project](https://github.com/canonical/edgex-sync/settings/secrets/actions).
 
