@@ -32,7 +32,7 @@ jobs:
             arch: armhf
     steps:        
       - name: Kick off Launchpad build
-        uses: canonical/edgex-launchpad-build-action@v2.0
+        uses: canonical/edgex-launchpad-build-action@v2.1
         with:
           snap_name: ${{ matrix.snap }}
           architecture: ${{ matrix.arch }}
