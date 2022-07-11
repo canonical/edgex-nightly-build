@@ -13,29 +13,28 @@ jobs:
       fail-fast: false
       matrix:
         snap:
+          # - edgexfoundry
+          # - edgex-cli
+          # - edgex-ui
+          # - edgex-app-service-configurable
+          # - edgex-app-rfid-llrp-inventory
+          # - edgex-device-camera
+          # - edgex-device-gpio
+          # - edgex-device-modbus
+          # - edgex-device-mqtt
+          # - edgex-device-rest
+          # - edgex-device-rfid-llrp
+          # - edgex-device-snmp
           - edgex-device-usb-camera
-        arch: amd64
-        ubuntu_series: jammy
-        # snap:
-        #   - edgexfoundry
-        #   - edgex-cli
-        #   - edgex-ui
-        #   - edgex-app-service-configurable
-        #   - edgex-app-rfid-llrp-inventory
-        #   - edgex-device-camera
-        #   - edgex-device-gpio
-        #   - edgex-device-modbus
-        #   - edgex-device-mqtt
-        #   - edgex-device-rest
-        #   - edgex-device-rfid-llrp
-        #   - edgex-device-snmp
-        #   - edgex-device-usb-camera
-        #   - edgex-device-virtual
-        # arch: [amd64, arm64]
-        # include:
-        #   # Additional armhf build for device-gpio
-        #   - snap: edgex-device-gpio
-        #     arch: armhf
+          # - edgex-device-virtual
+        arch: [amd64, arm64]
+        include:
+          # Additional armhf build for device-gpio
+          - snap: edgex-device-gpio
+            arch: armhf
+          # Use Ubuntu 22.04 for device-usb-camera
+          - snap: edgex-device-usb-camera
+            ubuntu_series: jammy
     steps:        
       - name: Kick off Launchpad build
         uses: canonical/edgex-launchpad-build-action@split-build-script
