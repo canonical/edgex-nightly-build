@@ -30,8 +30,8 @@ jobs:
         arch: [amd64, arm64]
         include:
           # Additional armhf build for device-gpio
-          - snap: edgex-device-gpio
-            arch: armhf
+          # - snap: edgex-device-gpio
+          #   arch: armhf
           # Use Ubuntu 22.04 for device-usb-camera
           - snap: edgex-device-usb-camera
             ubuntu_series: jammy
