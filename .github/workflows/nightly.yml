@@ -3,6 +3,8 @@ name: Nightly
 on:
   schedule:
   - cron:  "0 6 * * *"
+  # allow manual trigger
+  workflow_dispatch:
 
 jobs:
   request-build:
@@ -11,31 +13,36 @@ jobs:
       fail-fast: false
       matrix:
         snap:
-          - edgexfoundry
-          - edgex-cli
-          - edgex-ui
-          - edgex-app-service-configurable
-          - edgex-app-rfid-llrp-inventory
-          - edgex-device-camera
-          - edgex-device-gpio
-          - edgex-device-modbus
-          - edgex-device-mqtt
-          - edgex-device-rest
-          - edgex-device-rfid-llrp
-          - edgex-device-snmp
           - edgex-device-usb-camera
-          - edgex-device-virtual
-        arch: [amd64, arm64]
-        include:
-          # Additional armhf build for device-gpio
-          - snap: edgex-device-gpio
-            arch: armhf
+        arch: amd64
+        ubuntu_series: jammy
+        # snap:
+        #   - edgexfoundry
+        #   - edgex-cli
+        #   - edgex-ui
+        #   - edgex-app-service-configurable
+        #   - edgex-app-rfid-llrp-inventory
+        #   - edgex-device-camera
+        #   - edgex-device-gpio
+        #   - edgex-device-modbus
+        #   - edgex-device-mqtt
+        #   - edgex-device-rest
+        #   - edgex-device-rfid-llrp
+        #   - edgex-device-snmp
+        #   - edgex-device-usb-camera
+        #   - edgex-device-virtual
+        # arch: [amd64, arm64]
+        # include:
+        #   # Additional armhf build for device-gpio
+        #   - snap: edgex-device-gpio
+        #     arch: armhf
     steps:        
       - name: Kick off Launchpad build
-        uses: canonical/edgex-launchpad-build-action@v2.1
+        uses: canonical/edgex-launchpad-build-action@split-build-script
         with:
           snap_name: ${{ matrix.snap }}
           architecture: ${{ matrix.arch }}
+          ubuntu_series: ${{ matrix.ubuntu_series }}
           consumer_name: ${{ secrets.LP_CONSUMER_NAME }}
           access_token: ${{ secrets.LP_ACCESS_TOKEN }}
           access_secret: ${{ secrets.LP_ACCESS_SECRET }}
