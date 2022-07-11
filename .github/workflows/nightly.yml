@@ -29,6 +29,8 @@ jobs:
           - edgex-device-virtual
         arch: [amd64, arm64]
         include:
+          # Use Ubuntu 20.04 by default
+          - ubuntu_series: focal
           # Additional armhf build for device-gpio
           # - snap: edgex-device-gpio
           #   arch: armhf
