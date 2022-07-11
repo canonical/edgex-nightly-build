@@ -39,7 +39,7 @@ jobs:
             ubuntu_series: jammy
     steps:        
       - name: Kick off Launchpad build
-        uses: canonical/edgex-launchpad-build-action@split-build-script
+        uses: canonical/edgex-launchpad-build-action@v2.2
         with:
           snap_name: ${{ matrix.snap }}
           architecture: ${{ matrix.arch }}
