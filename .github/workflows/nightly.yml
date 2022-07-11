@@ -13,18 +13,18 @@ jobs:
       fail-fast: false
       matrix:
         snap:
-          # - edgexfoundry
-          # - edgex-cli
-          # - edgex-ui
-          # - edgex-app-service-configurable
-          # - edgex-app-rfid-llrp-inventory
-          # - edgex-device-camera
-          # - edgex-device-gpio
-          # - edgex-device-modbus
-          # - edgex-device-mqtt
-          # - edgex-device-rest
-          # - edgex-device-rfid-llrp
-          # - edgex-device-snmp
+          - edgexfoundry
+          - edgex-cli
+          - edgex-ui
+          - edgex-app-service-configurable
+          - edgex-app-rfid-llrp-inventory
+          - edgex-device-camera
+          - edgex-device-gpio
+          - edgex-device-modbus
+          - edgex-device-mqtt
+          - edgex-device-rest
+          - edgex-device-rfid-llrp
+          - edgex-device-snmp
           - edgex-device-usb-camera
           - edgex-device-virtual
         arch: [amd64, arm64]
@@ -32,8 +32,8 @@ jobs:
           # Use Ubuntu 20.04 by default
           - ubuntu_series: focal
           # Additional armhf build for device-gpio
-          # - snap: edgex-device-gpio
-          #   arch: armhf
+          - snap: edgex-device-gpio
+            arch: armhf
           # Use Ubuntu 22.04 for device-usb-camera
           - snap: edgex-device-usb-camera
             ubuntu_series: jammy
