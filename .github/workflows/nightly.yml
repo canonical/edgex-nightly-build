@@ -29,16 +29,21 @@ jobs:
           - edgex-device-virtual
         arch: [amd64, arm64]
         include:
+          # Use Ubuntu 20.04 by default
+          - ubuntu_series: focal
           # Additional armhf build for device-gpio
           - snap: edgex-device-gpio
             arch: armhf
+          # Use Ubuntu 22.04 for device-usb-camera
+          - snap: edgex-device-usb-camera
+            ubuntu_series: jammy
     steps:        
       - name: Kick off Launchpad build
         uses: canonical/edgex-launchpad-build-action@v2.2
         with:
           snap_name: ${{ matrix.snap }}
           architecture: ${{ matrix.arch }}
-          ubuntu_series: jammy
+          ubuntu_series: ${{ matrix.ubuntu_series }}
           consumer_name: ${{ secrets.LP_CONSUMER_NAME }}
           access_token: ${{ secrets.LP_ACCESS_TOKEN }}
           access_secret: ${{ secrets.LP_ACCESS_SECRET }}
