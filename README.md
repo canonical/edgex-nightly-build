@@ -15,6 +15,7 @@ Canonical publishes the following [EdgeX](https://www.edgexfoundry.org/) Snaps t
 - [edgex-device-snmp](https://snapcraft.io/edgex-device-snmp)
 - [edgex-device-usb-camera](https://snapcraft.io/edgex-device-usb-camera)
 - [edgex-device-virtual](https://snapcraft.io/edgex-device-virtual)
+- [edgex-device-onvif-camera](https://snapcraft.io/edgex-device-onvif-camera)
 
 The snaps are built nightly from the [upstream](https://www.github.com/edgexfoundry) repos and published to the store under `latest/edge` channel.
 
