@@ -18,7 +18,6 @@ jobs:
           - edgex-ui
           - edgex-app-service-configurable
           - edgex-app-rfid-llrp-inventory
-          - edgex-device-camera
           - edgex-device-gpio
           - edgex-device-modbus
           - edgex-device-mqtt
