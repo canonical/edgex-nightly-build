@@ -6,7 +6,6 @@ Canonical publishes the following [EdgeX](https://www.edgexfoundry.org/) Snaps t
 - [edgex-ui](https://snapcraft.io/edgex-ui)
 - [edgex-app-service-configurable](https://snapcraft.io/edgex-app-service-configurable)
 - [edgex-app-rfid-llrp-inventory](https://snapcraft.io/edgex-app-rfid-llrp-inventory)
-- [edgex-device-camera](https://snapcraft.io/edgex-devic)
 - [edgex-device-gpio](https://snapcraft.io/edgex-device-gpio)
 - [edgex-device-modbus](https://snapcraft.io/edgex-device-modbus)
 - [edgex-device-mqtt](https://snapcraft.io/edgex-device-mqtt)
