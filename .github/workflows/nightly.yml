@@ -16,6 +16,7 @@ jobs:
           - edgexfoundry
           - edgex-cli
           - edgex-ui
+          - edgex-ekuiper
           - edgex-app-service-configurable
           - edgex-app-rfid-llrp-inventory
           - edgex-device-gpio
