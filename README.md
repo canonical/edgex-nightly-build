@@ -2,7 +2,6 @@
 
 Canonical publishes the following [EdgeX](https://www.edgexfoundry.org/) Snaps to the Snap Store:
 - [edgexfoundry](https://snapcraft.io/edgexfoundry)
-- [edgex-cli](https://snapcraft.io/edgex-cli)
 - [edgex-ui](https://snapcraft.io/edgex-ui)
 - [edgex-ekuiper](https://snapcraft.io/edgex-ekuiper)
 - [edgex-app-service-configurable](https://snapcraft.io/edgex-app-service-configurable)
