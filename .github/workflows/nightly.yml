@@ -14,7 +14,6 @@ jobs:
       matrix:
         snap:
           - edgexfoundry
-          - edgex-cli
           - edgex-ui
           - edgex-ekuiper
           - edgex-app-service-configurable
